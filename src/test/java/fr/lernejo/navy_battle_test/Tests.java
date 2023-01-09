@@ -11,6 +11,7 @@ import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
@@ -81,6 +82,38 @@ public class Tests {
         assertTrue(response.body().contains("id"));
         assertTrue(response.body().contains("url"));
         assertTrue(response.body().contains("message"));
+        s.CloseServer();
+    }
+    @Test
+    public void testFireAPI404() throws IOException, InterruptedException {
+        Server s = new Server(9876);
+        s.StartServer();
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create("http://localhost:9876/api/game/fire"))
+            .setHeader("Accept", "application/json")
+            .setHeader("Content-Type", "application/json")
+            .POST(HttpRequest.BodyPublishers.ofString("{}"))
+            .build();
+        HttpClient client = HttpClient.newHttpClient();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        assertEquals(404, response.statusCode());
+        assertEquals("Not Found",response.body());
+        s.CloseServer();
+    }
+    @Test
+    public void testFireAPI202() throws IOException, InterruptedException {
+        Server s = new Server(9876);
+        s.StartServer();
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create("http://localhost:9876/api/game/fire?cell=B2"))
+            .setHeader("Content-Type", "application/json")
+            .GET()
+            .build();
+        HttpClient client = HttpClient.newHttpClient();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        assertEquals(202,response.statusCode()); // miss sunk hit
+        String[] temp = {"miss","sunk","hit"};
+        assertTrue(response.body().contains(temp[0]) || response.body().contains(temp[1]) || response.body().contains(temp[2]));
         s.CloseServer();
     }
 }
