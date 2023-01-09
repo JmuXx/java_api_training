@@ -1,5 +1,6 @@
 package fr.lernejo.navy_battle_test;
 import fr.lernejo.navy_battle.Server;
+import fr.lernejo.navy_battle.PostRq;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -11,7 +12,6 @@ import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
@@ -129,6 +129,16 @@ public class Tests {
         assertEquals(202,response.statusCode()); // miss sunk hit
         String[] temp = {"miss","sunk","hit"};
         assertTrue(response.body().contains(temp[0]) || response.body().contains(temp[1]) || response.body().contains(temp[2]));
+        s.CloseServer();
+    }
+
+    @Test
+    public void testNewPostRq() throws IOException, InterruptedException {
+        Server s = new Server(9876);
+        s.StartServer();
+        String[] args = {"0","http://localhost:9876"};
+        PostRq p = new PostRq(args,8576);
+        assertTrue(p.GetResponse().contains("id") && p.GetResponse().contains("url") && p.GetResponse().contains("message"));
         s.CloseServer();
     }
 }

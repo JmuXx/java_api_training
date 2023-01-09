@@ -7,6 +7,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class PostRq {
+    private final String _response;
     public PostRq(String[] args, int port) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         String adversaryUrl = args[1];
@@ -18,6 +19,9 @@ public class PostRq {
             .build();
         HttpResponse<String> response = null;
         response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println("status code: " + response.statusCode() + "\nresponse body: " + response.body());
+        _response = response.body();
+    }
+    public String GetResponse(){
+        return _response;
     }
 }
