@@ -102,10 +102,10 @@ public class Tests {
     }
     @Test
     public void testFireAPI400() throws IOException, InterruptedException {
-        Server s = new Server(9876);
+        Server s = new Server(7777);
         s.StartServer();
         HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create("http://localhost:9876/api/game/fire?admin=true"))
+            .uri(URI.create("http://localhost:7777/api/game/fire?admin=true"))
             .setHeader("Content-Type", "application/json")
             .GET()
             .build();
