@@ -5,10 +5,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
-import java.util.regex.Pattern;
+
 public class PlayerBoard {
     private final int[] port_ennemi = {0};
     private final int[][] board;

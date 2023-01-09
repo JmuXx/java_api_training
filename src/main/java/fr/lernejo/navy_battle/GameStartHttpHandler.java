@@ -5,9 +5,7 @@ import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.util.Arrays;
-
-import org.json.*;
+import org.json.JSONObject;
 
 class GameStartHttpHandler implements HttpHandler {
     private final int _port;

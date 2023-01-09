@@ -58,9 +58,9 @@ public class GameFire implements HttpHandler {
     public int IsSunked(int col, int line){
         // Bad way to check if a boat is sunk for a real game but with my boat start disposition it work ... :D
         int res = b.GetBoardVal(col - 1,line - 1) & b.GetBoardVal(col + 1,line + 1);
-        res = b.GetBoardVal(col - 1,line + 1) & b.GetBoardVal(col + 1,line - 1);
-        res = b.GetBoardVal(col - 1,line) & b.GetBoardVal(col + 1,line);
-        res = b.GetBoardVal(col,line - 1) & b.GetBoardVal(col,line + 1);
+        res = res & b.GetBoardVal(col - 1,line + 1) & b.GetBoardVal(col + 1,line - 1);
+        res = res & b.GetBoardVal(col - 1,line) & b.GetBoardVal(col + 1,line);
+        res = res & b.GetBoardVal(col,line - 1) & b.GetBoardVal(col,line + 1);
         return res;
     }
     public void SendResponse(HttpExchange exchange,int code, String message) throws IOException {
