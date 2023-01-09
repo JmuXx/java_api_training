@@ -101,6 +101,21 @@ public class Tests {
         s.CloseServer();
     }
     @Test
+    public void testFireAPI400() throws IOException, InterruptedException {
+        Server s = new Server(9876);
+        s.StartServer();
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create("http://localhost:9876/api/game/fire?admin=true"))
+            .setHeader("Content-Type", "application/json")
+            .GET()
+            .build();
+        HttpClient client = HttpClient.newHttpClient();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        assertEquals(400,response.statusCode()); // miss sunk hit
+        assertEquals("Bad Request",response.body());
+        s.CloseServer();
+    }
+    @Test
     public void testFireAPI202() throws IOException, InterruptedException {
         Server s = new Server(9876);
         s.StartServer();
