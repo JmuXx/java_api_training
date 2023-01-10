@@ -69,11 +69,11 @@ public class Tests {
     }
     @Test
     public void testStartAPI202() throws IOException, InterruptedException {
-        Server s = new Server(9876);
+        Server s = new Server(4321);
         s.StartServer();
         String template = "{\"id\":\"1\",\"url\":\"http://localhost:4334\",\"message\":\"bjr\"}";
         HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create("http://localhost:9876/api/game/start"))
+            .uri(URI.create("http://localhost:4321/api/game/start"))
             .setHeader("Content-Type", "application/json")
             .POST(HttpRequest.BodyPublishers.ofString(template))
             .build();
