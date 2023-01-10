@@ -35,11 +35,10 @@ public class Tests {
 
     @Test
     public void testStartAPI404() throws IOException, InterruptedException {
-        Server s = new Server(9876);
+        Server s = new Server(1234);
         s.StartServer();
-        URL url = new URL("http://localhost:9876/api/game/start");
         HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create("http://localhost:9876/api/game/start"))
+            .uri(URI.create("http://localhost:1234/api/game/start"))
             .setHeader("Accept", "application/json")
             .setHeader("Content-Type", "application/json")
             .GET()
