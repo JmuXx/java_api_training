@@ -72,13 +72,8 @@ public class PlayerBoard {
 
     public void Play(String cell) throws IOException {
         HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create("http://127.0.0.1:" + this.port_ennemi[0] + "/api/game/fire?cell=" + cell))
-            .setHeader("Accept", "application/json")
-            .GET()
-            .build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://127.0.0.1:" + this.port_ennemi[0] + "/api/game/fire?cell=" + cell)).setHeader("Accept", "application/json").GET().build();
         HttpResponse<String> response = null;
-
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
             System.out.println(response.body());
@@ -88,7 +83,6 @@ public class PlayerBoard {
                 s.CloseServer();
                 System.exit(0);
             }
-
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

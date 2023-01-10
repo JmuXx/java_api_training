@@ -52,9 +52,7 @@ class GameStartHttpHandler implements HttpHandler {
         OutputStream os = exchange.getResponseBody();
         os.write(message.getBytes());
         os.close();
-        System.out.println(_b.Indexx());
         _b.Play(_b.Indexx());
-        System.out.println(_b.Indexx());
     }
 
     public int get_port() {

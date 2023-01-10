@@ -77,9 +77,7 @@ public class GameFire implements HttpHandler {
             System.exit(0);
         }
         else {
-            System.out.println(b.Indexx());
             b.Play(b.Indexx());
-            System.out.println(b.Indexx());
         }
     }
 }
