@@ -59,17 +59,20 @@ public class GameFire implements HttpHandler {
     }
     public int IsSunked(int col, int line){
         // Bad way to check if a boat is sunk for a real game but with my boat start disposition it work ... :D
-        int res = b.GetBoardVal(col - 1,line - 1) & b.GetBoardVal(col + 1,line + 1);
-        res = res & b.GetBoardVal(col - 1,line + 1) & b.GetBoardVal(col + 1,line - 1);
-        res = res & b.GetBoardVal(col - 1,line) & b.GetBoardVal(col + 1,line);
-        res = res & b.GetBoardVal(col,line - 1) & b.GetBoardVal(col,line + 1);
-        return res;
+        int res = b.GetBoardVal(col - 1,line - 1) + b.GetBoardVal(col + 1,line + 1);
+        res = res + b.GetBoardVal(col - 1,line + 1) + b.GetBoardVal(col + 1,line - 1);
+        res = res + b.GetBoardVal(col - 1,line) + b.GetBoardVal(col + 1,line);
+        res = res + b.GetBoardVal(col,line - 1) + b.GetBoardVal(col,line + 1);
+        if(res == 0)
+            return 1;
+        return 0;
     }
     public void SendResponse(HttpExchange exchange,int code, String message) throws IOException {
         exchange.getResponseHeaders().set("Content-Type", "application/json");
         exchange.sendResponseHeaders(code, message.length());
         OutputStream os = exchange.getResponseBody();
         os.write(message.getBytes());
+        System.out.println(message);
         os.close();
         if(!b.ShipLeft()){
             System.out.println("Dommage Vous Perdez Cette Partie !");
@@ -77,7 +80,12 @@ public class GameFire implements HttpHandler {
             System.exit(0);
         }
         else {
-            b.Play(b.Indexx());
+            b.PrintBoard();
+            try {
+                b.Play(b.Indexx());
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

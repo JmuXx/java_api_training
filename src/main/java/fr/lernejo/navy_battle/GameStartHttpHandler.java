@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+
 import org.json.JSONObject;
 
 class GameStartHttpHandler implements HttpHandler {
@@ -52,7 +53,14 @@ class GameStartHttpHandler implements HttpHandler {
         OutputStream os = exchange.getResponseBody();
         os.write(message.getBytes());
         os.close();
-        _b.Play(_b.Indexx());
+        System.out.println(message);
+        try {
+            String s = _b.Indexx();
+            System.out.println(s);
+            _b.Play(s);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public int get_port() {
