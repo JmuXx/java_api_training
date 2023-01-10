@@ -11,8 +11,10 @@ import org.json.JSONObject;
 public class GameFire implements HttpHandler {
 
     private final PlayerBoard b;
-    public GameFire(PlayerBoard _b){
+    private final Server s;
+    public GameFire(PlayerBoard _b, Server _s){
         b = _b;
+        s = _s;
     }
     @Override
     public void handle(HttpExchange exchange) throws IOException {
@@ -69,11 +71,16 @@ public class GameFire implements HttpHandler {
         OutputStream os = exchange.getResponseBody();
         os.write(message.getBytes());
         os.close();
-        /*try {
-            b.Play("C4");
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }*/
+        if(!b.ShipLeft()){
+            System.out.println("Dommage Vous Perdez Cette Partie !");
+            s.CloseServer();
+            System.exit(0);
+        }
+        else {
+            System.out.println(b.Indexx());
+            b.Play(b.Indexx());
+            System.out.println(b.Indexx());
+        }
     }
 }
 

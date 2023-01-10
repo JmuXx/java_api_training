@@ -12,12 +12,12 @@ public class Server {
     private final HttpServer server;
     public Server(int _port) throws IOException {
         port = _port;
-        b = new PlayerBoard(port);
+        b = new PlayerBoard(port,this);
         server = HttpServer.create(new InetSocketAddress(port), 0);
         server.setExecutor(Executors.newFixedThreadPool(1));
         server.createContext("/ping", new PingHandler());
         server.createContext("/api/game/start", new GameStartHttpHandler(port, b));
-        server.createContext("/api/game/fire", new GameFire(b));
+        server.createContext("/api/game/fire", new GameFire(b,this));
     }
     public PlayerBoard StartServer(){
         server.start();

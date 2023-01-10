@@ -52,11 +52,9 @@ class GameStartHttpHandler implements HttpHandler {
         OutputStream os = exchange.getResponseBody();
         os.write(message.getBytes());
         os.close();
-        try {
-            _b.Play("B2");
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        System.out.println(_b.Indexx());
+        _b.Play(_b.Indexx());
+        System.out.println(_b.Indexx());
     }
 
     public int get_port() {
