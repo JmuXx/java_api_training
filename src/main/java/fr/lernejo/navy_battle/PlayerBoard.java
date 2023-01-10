@@ -36,8 +36,8 @@ public class PlayerBoard {
         this.inc[0] += 1;
         return res;
     }
-    public int GetEnnemyPort(){
-        return port_ennemi[0];
+    public int GetInc(){
+        return this.inc[0];
     }
     public void SetEnnemyPort(int port){
         this.port_ennemi[0] = port;
@@ -60,14 +60,6 @@ public class PlayerBoard {
         }
         return res;
     }
-    public void PrintBoard(){
-        for (int[] a:board) {
-            for (int b:a){
-               System.out.print(b);
-            }
-            System.out.println();
-        }
-    }
     public void SetBoardTo0(int col, int line){
         board[line][col] = 0;
     }
@@ -80,7 +72,6 @@ public class PlayerBoard {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://127.0.0.1:" + this.port_ennemi[0] + "/api/game/fire?cell=" + cell)).setHeader("Accept", "application/json").GET().build();
         HttpResponse<String> response = null;
-
         response = client.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response.body());
         JSONObject json = new JSONObject(response.body());

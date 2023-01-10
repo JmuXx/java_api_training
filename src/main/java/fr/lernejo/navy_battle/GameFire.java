@@ -80,12 +80,8 @@ public class GameFire implements HttpHandler {
             System.exit(0);
         }
         else {
-            b.PrintBoard();
-            try {
-                b.Play(b.Indexx());
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            try {b.Play(b.Indexx());}
+            catch (InterruptedException e) {throw new RuntimeException(e);}
         }
     }
 }

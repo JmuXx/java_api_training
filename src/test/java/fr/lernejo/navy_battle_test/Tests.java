@@ -1,4 +1,5 @@
 package fr.lernejo.navy_battle_test;
+import fr.lernejo.navy_battle.PlayerBoard;
 import fr.lernejo.navy_battle.Server;
 import fr.lernejo.navy_battle.PostRq;
 import org.junit.Test;
@@ -140,5 +141,22 @@ public class Tests {
         PostRq p = new PostRq(args,8576);
         assertTrue(p.GetResponse().contains("id") && p.GetResponse().contains("url") && p.GetResponse().contains("message"));
         s.CloseServer();
+    }
+
+    @Test
+    public  void testPlayerBoardMethods() throws IOException{
+        Server s = new Server(9876);
+        PlayerBoard p = new PlayerBoard(9876,s);
+        assertEquals(0,p.GetBoardVal(0,0));
+        p.Indexx();
+        p.SetBoardTo0(1,0);
+        assertEquals(0,p.GetBoardVal(1,0));
+        assertEquals(1,p.GetInc());
+        for(int i = 0;i < 10;i++){
+            for(int j = 0;j < 10; j++){
+                p.SetBoardTo0(i,j);
+            }
+        }
+        assertTrue(!p.ShipLeft());
     }
 }
